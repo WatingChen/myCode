@@ -2,8 +2,8 @@
   <el-table
     :data="dataList"
     style="width: 100%"
-    v-loading="tableConfig.isLoading"
-    :border="tableConfig.hasBorder"
+    v-bind.sync="tableConfig['config']"
+    v-loading="tableConfig.isShowLoading"
     @selection-change="selectionChange"
   >
     <!-- 选择-->
@@ -17,30 +17,6 @@
     ></el-table-column>
 
     <!-- 数据源 -->
-    <!-- <template v-for="(item, index) in columns">
-      <el-table-column v-if="!item.render" :key="index" v-bind.sync="item['config']">
-        <template slot="header" v-if="headerColumns[index].renderHeader">
-          <expand-item
-            :column="item"
-            :row="headerColumns[index]"
-            :render="headerColumns[index].renderHeader"
-          ></expand-item>
-        </template>
-      </el-table-column>
-
-      <el-table-column v-else :key="index" v-bind.sync="item['config']">
-        <template slot="header" v-if="headerColumns[index].renderHeader">
-          <expand-item
-            :column="item"
-            :row="headerColumns[index]"
-            :render="headerColumns[index].renderHeader"
-          ></expand-item>
-        </template>
-        <template slot-scope="scope">
-          <expand-item :column="item" :row="scope.row" :render="item.render"></expand-item>
-        </template>
-      </el-table-column>
-    </template>-->
     <template v-for="(item, index) in columns">
       <el-table-column :key="index" v-bind.sync="item['config']">
         <template slot="header" v-if="headerColumns[index].renderHeader">
@@ -57,7 +33,7 @@
     </template>
 
     <!-- 操作 -->
-    <el-table-column v-if="tableConfig.isShowOperate" label="操作" width="140">
+    <el-table-column v-if="tableConfig.isShowOperate" label="操作" width="140" align="center">
       <template slot-scope="scope">
         <slot name="operate_txt" :todo="scope">
           <el-button @click="handleClick(scope,scope.row,scope.$index)" type="text" size="small">删除</el-button>
@@ -73,38 +49,40 @@
 export default {
   name: "Table",
   props: {
+    // 数据
     dataList: {
       required: true,
       type: Array,
-      default: () => {
-        return [];
-      },
+      default: [],
     },
     columns: {
       required: true,
       type: Array,
-      default: () => {
-        return [];
-      },
+      default: [],
     },
+    // 表头
     headerColumns: {
       required: true,
       type: Array,
-      default: () => {
-        return [];
-      },
+      default: [],
     },
     tableConfig: {
       required: true,
       type: Object,
       default: {
+        // table config
+        config: {
+          type: Object,
+          default: {},
+        },
+        // 多选
         hasSelection: {
           type: Boolean,
           default: false,
         },
+        // 序号config
         indexConfig: {
           type: Object,
-          default: false,
           default: {
             hasIndex: {
               type: Boolean,
@@ -116,11 +94,13 @@ export default {
             },
           },
         },
-        hasLoading: {
-          type: Boolean,
-          default: false,
-        },
+        // 操作列
         isShowOperate: {
+          type: Boolean,
+          default: true,
+        },
+        // loading
+        isShowLoading: {
           type: Boolean,
           default: true,
         },
@@ -128,24 +108,15 @@ export default {
     },
   },
   methods: {
-    isRenderHeader(index) {
-      if (this.headerColumns[index]) {
-        return this.headerColumns[index].renderHeader;
-      }
-      return undefined;
-    },
-    handleClick: function (scope, row, index) {
+    handleClick(scope, row, index) {
       this.$emit("table_delete", row);
-      // console.log(scope);
-      // console.log(row);
-      // console.log(index);
     },
     selectionChange(val) {
       this.$emit("getChooseCloumns", val);
     },
   },
   watch: {
-    showLoading(val) {
+    tableConfig(val) {
       console.log(val);
     },
   },
@@ -172,7 +143,7 @@ export default {
         if (column.config.isRender) {
           return ctx.props.render(h, params);
         } else {
-          return <span>{row.name}</span>;
+          return <span>{row[column.config.prop]}</span>;
         }
       },
     },
