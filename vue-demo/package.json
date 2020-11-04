@@ -5,13 +5,17 @@
   "author": "WaitingChen",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "build": "node build/build.js"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
     "element-ui": "^2.13.2",
+    "express": "^4.17.1",
     "js-cookie": "^2.2.1",
+    "multer": "^1.4.2",
     "sass": "^1.26.10",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",

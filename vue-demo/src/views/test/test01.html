@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  #parent {
+    width: 200px;
+    height: 200px;
+    background: #99f;
+    position: relative;
+  }
+
+  #box {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background: #9f9;
+    top: 25%;
+    left: 25%;
+  }
+
+</style>
+
+<body>
+  <div class="container">
+    <h2>实例</h2>
+    <p> .sr-only 类除了屏幕阅读器外，其他设备上都隐藏元素:</p>
+    <a class="sr-only" href="#">跳转到主要内容</a>
+    <p>与 .sr-only 类结合使用，在元素获取焦点时显示(如：键盘操作的用户):</p>
+    <a class="sr-only sr-only-focusable" href="#">跳转到主要内容</a>
+</div>
+  <!-- <div id="parent">
+    <div id="box">
+
+    </div>
+  </div> -->
+</body>
+<!-- <script>
+  let parent = document.querySelector("#parent");
+  let box = document.querySelector("#box");
+  console.log(box.offsetLeft, box.offsetTop, box.getBoundingClientRect())
+  console.log(parent.offsetLeft, parent.offsetTop, parent.getBoundingClientRect())
+</script> -->
+
+<!-- <script>
+  // [].forEach.call($$("parent"),function(el){
+  //     el.style.outline = "1px solid #" + (~~(Math.random()*(1<<24))).toString(16);
+  // })
+
+  window.name = "ByteDance";
+
+  function A() {
+    this.name = 123;
+  }
+
+  A.prototype.getA = function () {
+    console.log(this);
+    return this.name + 1;
+  }
+
+  let a = new A();
+  let funcA = a.getA;
+  let res = funcA();
+  console.log(res);
+  let funcB = a.getA();
+  console.log(funcB);
+
+
+  let fn = (a, b) => {
+
+  }
+
+  const myChange = function (isChange, ...args) {
+    let changeArr = [...arguments];
+    if (isChange) {
+      changeArr.reverse();
+    }
+    console.log(changeArr)
+    console.log(fn.apply(null, ...changeArr))
+    return fn.apply(null, ...changeArr);
+  }
+
+  myChange(true, 1, 2);
+
+</script> -->
+
+<script>
+  // 数组方法：
+  // 不改变原数组：concat,join,slice,indexOf,includes
+  // 改变原属组：sort,pop,push,shift,unshift,reverse,splice
+
+  // let arr = [1, 2, 3]
+  // let arr2 = [4, 5, 6]
+  // let arr3 = [];
+  // let arr4 = [];
+  // let str = "";
+
+  // arr3  = arr.concat(arr, arr2)
+  // str = arr.join(",")
+  // arr3 = arr.sort((a,b)=>b-a)
+  // arr3 = arr.pop()
+  // arr3 = arr.push("4")
+  // arr3 = arr.shift()
+  // arr3 = arr.unshift(9)
+  // arr3 = arr.reverse()
+  // arr3 = arr.splice(1,1,9)
+  // arr3 = arr.includes(1)
+  // arr.forEach((item, index) => {
+  //   console.log(item, index)
+  //   arr3.push(item + 1)
+  //   return item - 1
+  // })
+  // arr4 = arr.map(item=>{
+  //   return item + 1
+  // })
+
+  // console.log(str, "str")
+  // console.log(arr, "arr")
+  // console.log(arr2, "arr2")
+  // console.log(arr3, "arr3")
+  // console.log(arr4, "arr4")
+
+</script>
+
+<script>
+  let obj = {
+    a: 1,
+    b: "123"
+  }
+
+  let res;
+
+  // res = obj.hasOwnProperty("c");
+  // res = obj.propertyIsEnumerable("b");
+  // res = obj.valueOf();
+  // res = obj.toString();
+  // res = obj.toLocaleString();
+  // Class.prototype.isPropertyOf(obj)
+  // console.log(res)
+  var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  arr.sort(function () {
+    return Math.random() - 0.5;
+  })
+  console.log(arr);
+
+</script>
+
+</html>

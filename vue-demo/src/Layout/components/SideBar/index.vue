@@ -6,7 +6,10 @@
     :collapse="$store.state.sideBar.isOpen"
     :show-timeout="200"
   >
-    
+    <el-menu-item :index="item.name" v-for="item in navList" :key="item.name">
+      <i class="el-icon-menu"></i>
+      <span slot="title">{{ item.navItem }}</span>
+    </el-menu-item>
   </el-menu>
 </template>
 

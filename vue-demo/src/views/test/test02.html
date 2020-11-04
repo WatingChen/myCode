@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .parent {
+      width: 500px;
+      height: 500px;
+      border: 1px solid #f00;
+      /* 居中 */
+      display: flex;
+    }
+    .children {
+      background: #99f;
+      width: 100%;
+      /* padding的百分比是按container的width算的 */
+      padding-bottom: 75%;
+       /* 居中 */
+      margin: auto;
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- children宽高比4:3 -->
+  <div class="parent">
+    <div class="children">111</div>
+  </div>
+</body>
+
+<script>
+  // window.name = "ByteDance";
+
+  // class A {
+  //   constructor() {
+  //     this.name = 123;
+  //   }
+  //   getA() {
+  //     console.log(this);
+  //     return this.name + 1;
+  //   }
+  // }
+
+
+  // let a = new A();
+  // let funcA = a.getA;
+  // let res = funcA();
+  // console.log(res);
+
+  // function aaa() { 
+  //   return () => {
+  //     return () =>{
+  //       console.log(this)
+  //     }
+  //   }
+  //  }
+
+  // console.log(aaa()()())
+
+  var a = 0;
+  var b = async () => {
+    a = a + await 10
+    console.log("2", a)
+    a = (await 10 ) + a 
+    console.log('3', a)
+  }
+
+  b()
+  a++
+  console.log('1', a)
+
+</script>
+
+</html>

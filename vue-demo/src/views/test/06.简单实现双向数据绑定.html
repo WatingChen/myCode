@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="text" id="input" />
+  <div class="text"></div>
+</body>
+<script>
+  //   let input = document.querySelector("#input");
+    let text = document.querySelector(".text");
+
+  //   const data = {};
+  //   Object.defineProperty(data, "text", {
+  //     set(value) {
+  //       input.value = value;
+  //       this.value = value;
+  //     }
+  //   })
+  //   input.onChange = function (e) {
+  //     data.text = e.target.value;
+  //     console.log(data)
+  //   }
+  const data = {};
+  const input = document.getElementById('input');
+  Object.defineProperty(data, 'text', {
+    set(value) {
+        console.log(this,value)
+    //   input.value = value;
+      this.value = value;
+    }
+  });
+  input.oninput = function (e) {
+    data.text = e.target.value;
+    // console.log(data)
+    text.innerHTML = data.value
+  }
+  
+
+</script>
+
+</html>
