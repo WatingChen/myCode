@@ -6,34 +6,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+<style>
+  div {
+    width: 100vw;
+    background: #f00;
+    height: 100vh;
+  }
+
+</style>
 
 <body>
   <button class="btn">防抖</button> <br />
   <br />
   <br />
   <button class="btn2">节流</button>
+  <!-- <div></div> -->
 </body>
 <script>
   // 防抖动和节流本质是不一样的。防抖动是将多次执行变为最后一次执行，节流是将多次执行变成每隔一段时间执行
   let btn = document.querySelector(".btn");
   let btn2 = document.querySelector(".btn2");
   btn.addEventListener("click", debounce(handleClick, 1000));
-  btn2.addEventListener("click", throttle(handleClick, 2000));
+  btn2.addEventListener("click", throttle(handleClick, 500, 500));
 
   function handleClick() {
     console.log(123)
   }
   // 节流
-  function throttle(fn, wait) {
-    let lastTime = 0;
-    return function (...args) {
-      let now = +new Date();
-      if(now - lastTime > wait) {
-        lastTime = now;
-        fn.apply(this, args);
-      }
-    } 
-  }
+  // function throttle(fn, wait) {
+  //   let lastTime = 0;
+  //   return function (...args) {
+  //     let now = +new Date();
+  //     if (now - lastTime > wait) {
+  //       lastTime = now;
+  //       fn.apply(this, args);
+  //     }
+  //   }
+  // }
   // 防抖
   function debounce(fn, wait) {
     let time = null;
@@ -42,6 +51,25 @@
       time = setTimeout(() => {
         fn.apply(this, args)
       }, wait);
+    }
+  }
+
+  function throttle(method, delay, duration) {
+    var timer = null,
+      begin = new Date();
+    return function () {
+      var context = this,
+        args = arguments,
+        current = new Date();;
+      clearTimeout(timer);
+      if (current - begin >= duration) {
+        method.apply(context, args);
+        begin = current;
+      } else {
+        timer = setTimeout(function () {
+          method.apply(context, args);
+        }, delay);
+      }
     }
   }
 

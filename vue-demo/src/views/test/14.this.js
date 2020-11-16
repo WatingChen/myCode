@@ -15,7 +15,7 @@ obj.foo()
 // 以下情况是优先级最高的，`this` 只会绑定在 `c` 上，不会被任何方式修改 `this` 指向
 var c = new foo()
 c.a = 3
-console.log(c.a)
+console.log(c.a, "c.a")
 
 // 还有种就是利用 call，apply，bind 改变 this，这个优先级仅次于 new
 
