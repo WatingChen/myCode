@@ -1,0 +1,105 @@
+{
+  "nodes": [{
+      "id": "bj",
+      "stationName": "北京西站",
+      "trains": ["K1453", "Z133", "Z107", "K105"],
+      "status": "fail"
+    },
+    {
+      "id": "sh",
+      "stationName": "上海站",
+      "trains": ["G7080", "G7084", "G7088"],
+      "status": "success"
+    },
+    {
+      "id": "shhq",
+      "stationName": "上海虹桥站",
+      "trains": ["G7132", "G7136", "G7140", "G7144"],
+      "status": "success"
+    },
+    {
+      "id": "hzd",
+      "stationName": "杭州东站",
+      "trains": ["K272", "T212", "K470", "G7330", "G7588", "G1372"],
+      "status": "success"
+    },
+    {
+      "id": "aq",
+      "stationName": "安庆站",
+      "trains": ["K311", "K1030", "G7132", "G7136", "G7140", "G7090"],
+      "status": "success",
+      "shape": "customNode2"
+    },
+    {
+      "id": "ja",
+      "stationName": "吉安站",
+      "trains": ["Z108", "Z134", "K572", "T212", "K470"],
+      "status": "success"
+    },
+    {
+      "id": "gz",
+      "stationName": "广州站",
+      "trains": ["C7021", "K9096", "K237", "C7111"],
+      "status": "success"
+    }
+  ],
+  "edges": [{
+      "source": "ja",
+      "target": "bj",
+      "id": "ja-bj"
+    },
+    {
+      "source": "bj",
+      "target": "ja",
+      "id": "bj-ja"
+    },
+    {
+      "source": "shhq",
+      "target": "sh",
+      "id": "shhq-sh",
+      "style": {
+        "lineDash": [8, 5]
+      },
+      "label": {
+        "text": "地铁2转1"
+      }
+    },
+    {
+      "source": "hzd",
+      "target": "shhq",
+      "id": "hzd-shhq"
+    },
+    {
+      "source": "sh",
+      "target": "aq",
+      "id": "sh-aq"
+    },
+    {
+      "source": "aq",
+      "target": "ja",
+      "id": "aq-ja",
+      "color": "red",
+      "label": {
+        "text": "吴 肖 2×K311",
+        "fill": "green",
+        "fontSize": 14
+      }
+    },
+    {
+      "source": "hzd",
+      "target": "aq",
+      "id": "hzd-aq",
+      "style": {
+        "lineDash": [8, 5]
+      },
+      "label": {
+        "text": "高铁修建中"
+      }
+    },
+    {
+      "source": "ja",
+      "target": "hzd",
+      "id": "ja-hzd"
+    }
+  ]
+}
