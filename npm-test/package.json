@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "mocha": "mocha tests/",
-    "test": "npm-run-all lint:* mocha",
+    "//": "运行所有代码检查和单元测试",
+    "test": "npm-run-all --parallel lint:* mocha",
     "eslint": "eslint *.js",
     "lint:js": "eslint *.js",
+    "lint:js:fix": "npm run lint:js -- --fix",
     "lint:css": "stylelint *.less",
     "lint:json": "jsonlint --quiet *.json",
     "lint:markdown": "markdownlint --config .markdownlint.json *.md"
