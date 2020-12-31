@@ -1,14 +1,7 @@
 <template>
   <div id="demo">
-    <div
-      tabIndex="0"
-      className="pdman-relation-paint"
-      id="paint-map&AUTH-用户安全/关系图"
-    >
-      {{}}
-    </div>
+    <div tabIndex="0" className="pdman-relation-paint" :id="this.id"></div>
   </div>
-  <!-- <div id="demo">g6demo</div> -->
 </template>
 
 <script>
@@ -19,6 +12,7 @@ export default {
   name: "Relation",
   data() {
     return {
+      id: "paint-map&AUTH-用户安全/关系图", // 容器ID
       tabs: [
         {
           title: "AUTH-用户安全/关系图",
@@ -103,103 +97,11 @@ export default {
     const height = this.height;
     const dataSource = this.dataSource;
     const width = this.width;
+    console.log(dataSource, "dataSource");
     const data = this._getData(dataSource);
     this._renderRelation(height, width, data, dataSource);
   },
   methods: {
-    _getAssociations(data, module) {
-      const edges = [...(data.edges || [])];
-      const nodes = [...(data.nodes || [])];
-      const entities = module.entities || [];
-      const tempAssociations = edges
-        .map((edge) => {
-          const sourceNode = nodes.filter((node) => node.id === edge.source)[0];
-          const targetNode = nodes.filter((node) => node.id === edge.target)[0];
-          const sourceEntity = sourceNode.title.split(":")[0];
-          const targetEntity = targetNode.title.split(":")[0];
-          const sourceEntityData =
-            entities.filter((entity) => entity.title === sourceEntity)[0] ||
-            sourceNode;
-          const targetEntityData =
-            entities.filter((entity) => entity.title === targetEntity)[0] ||
-            targetNode;
-          const sourceFieldData = (sourceEntityData.fields || []).filter(
-            (f) => !f.relationNoShow
-          )[parseInt(edge.sourceAnchor / 2, 10)];
-          const targetFieldData = (targetEntityData.fields || []).filter(
-            (f) => !f.relationNoShow
-          )[parseInt(edge.targetAnchor / 2, 10)];
-          if (!sourceFieldData || !targetFieldData) {
-            return null;
-          }
-          return {
-            relation: edge.relation || "0,n:1",
-            from: {
-              entity: sourceEntity,
-              field: sourceFieldData.name,
-            },
-            to: {
-              entity: targetEntity,
-              field: targetFieldData.name,
-            },
-          };
-        })
-        .filter((association) => !!association);
-      const tempAssociationsString = [];
-      return tempAssociations.filter((association) => {
-        const stringData = `${association.from.entity}/${association.to.field}
-      /${association.to.entity}/${association.from.field}`;
-        if (!tempAssociationsString.includes(stringData)) {
-          tempAssociationsString.push(stringData);
-          return true;
-        }
-        return false;
-      });
-    },
-    _checkTableName(title, titles) {
-      if (titles.includes(title)) {
-        return this._checkTableName(`${title}1`, titles);
-      }
-      return title;
-    },
-    _getCpt(value) {
-      if (value.startsWith("map&")) {
-        return <Relation />;
-      } else if (value.startsWith("entity&")) {
-        return <Table />;
-      }
-      return "";
-    },
-    _addCountTableName(name, title) {
-      const titleNumber = title.split(":")[1];
-      if (name.includes(":")) {
-        return name;
-      } else if (titleNumber) {
-        return `${name}:${titleNumber}`;
-      }
-      return name;
-    },
-    _getTableNameByNameTemplate(entity, title) {
-      let tempName = title;
-      if (entity) {
-        const nameTemplate = entity.nameTemplate || "{code}[{name}]";
-        if (!nameTemplate) {
-          tempName = entity.chnname || entity.title;
-        } else {
-          tempName =
-            nameTemplate.replace(/\{(\w+)\}/g, (match, key) => {
-              let tempKey = key;
-              if (tempKey === "code") {
-                tempKey = "title";
-              } else if (tempKey === "name") {
-                tempKey = "chnname";
-              }
-              return entity[tempKey];
-            }) || entity.title;
-        }
-      }
-      return this._addCountTableName(tempName, title);
-    },
     _getAllTable(dataSource, table, moduleName) {
       const tempTable = (table || this.table).map((entity) => entity.title);
       let modules = dataSource.modules || [];
@@ -282,7 +184,7 @@ export default {
             )[0];
           return {
             ...node,
-            realName: _this._getTableNameByNameTemplate(dataTable, node.title),
+            realName: `${node.title}[${dataTable.chnname}]`,
             datatype,
             associations,
             headers: _this._initColumnOrder(dataTable),
@@ -294,19 +196,6 @@ export default {
         }),
       };
     },
-    _getDefaultDataType(type) {
-      const { dataSource } = this;
-      const database = _object.get(dataSource, "dataTypeDomains.database", []);
-      const datatype = _object.get(dataSource, "dataTypeDomains.datatype", []);
-      const defaultDatabase = database.filter((db) => db.defaultDatabase)[0];
-      const dbCode = defaultDatabase.code || database[0].code || "";
-      if (dbCode) {
-        const current = datatype.filter((dt) => dt.code === type)[0] || {};
-        const apply = current.apply || {};
-        return (apply[dbCode] && apply[dbCode].type) || "";
-      }
-      return "";
-    },
     _renderRelation(
       paintHeight,
       paintWidth,
@@ -317,8 +206,8 @@ export default {
       disableGrid,
       disableMap
     ) {
+      console.log(data, dataSource, "1111111");
       const Util = G6.Util;
-      const getDefaultDataType = this._getDefaultDataType;
       /* eslint-disable */
 
       const miniMap = new G6.Plugins["tool.minimap"]({
@@ -700,8 +589,6 @@ export default {
                 (type) => type.code === field[fieldName]
               )[0];
               return (currType && currType.name) || field[fieldName];
-            } else if (fieldName === "dataType") {
-              return getDefaultDataType(field.type);
             }
             return field[fieldName] || "";
           };
@@ -833,7 +720,7 @@ export default {
         },
       });
       this.net = new G6.Net({
-        id: id || `paint-map&AUTH-用户安全/关系图`, // 容器ID
+        id: id || this.id, // 容器ID
         height: paintHeight - 20,
         width: paintWidth,
         mode: "edit",

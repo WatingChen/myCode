@@ -36,11 +36,11 @@
 // }
 
 // 第三种就是使用 let 定义 i 了
-for (let i = 1; i <= 5; i++) {
-    setTimeout(function timer() {
-        console.log(i);
-    }, i * 1000);
-}
+// for (let i = 1; i <= 5; i++) {
+//     setTimeout(function timer() {
+//         console.log(i);
+//     }, i * 1000);
+// }
 
 // 因为对于 let 来说，他会创建一个块级作用域，相当于
 // { // 形成块级作用域
@@ -62,3 +62,15 @@ for (let i = 1; i <= 5; i++) {
 //     ...
 // }
 
+function F1() {
+    var a = 100
+    return function () {
+        console.log(a)
+    }
+}
+function F2(f1) {
+    var a = 200
+    console.log(f1(),"f1")
+}
+var f1 = F1()
+F2(f1)

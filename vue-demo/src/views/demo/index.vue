@@ -4,13 +4,13 @@
 
 <script>
 import DemoData from "./defaultData";
-import ModulesData from "./student.pdman";
+// import ModulesData from "./student.pdman";
 export default {
   name: "Demo",
   data() {
     return {
       demoData: DemoData,
-      modulesData: ModulesData.modules,
+      // modulesData: ModulesData.modules,
       paintHeight: window.innerHeight,
       paintWidth: window.innerWidth,
     };

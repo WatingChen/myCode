@@ -1,0 +1,53 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: WaitingChen
+ * @Date: 2020-12-31 14:36:58
+ * @LastEditors: WaitingChen
+ * @LastEditTime: 2020-12-31 14:58:44
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>css打印机效果</title>
+  <style>
+    .test {
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      letter-spacing: .3rem;
+      animation: typing 5s steps(60, end) forwards, blink-caret .3s step-end infinite alternate;
+      /* animation: typing 5s steps(60, end); */
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+    }
+
+    @keyframes blink-caret {
+
+      from,
+      to {
+        box-shadow: 1px 0 0 0 transparent;
+      }
+
+      50% {
+        box-shadow: 1px 0 0 0;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="test">
+    模拟编辑器，或者输入框中文字啪啦啪啦输入的效果，纯CSS实现，这种效果可以用在在线版简历，或者年终盘点活动上
+  </div>
+</body>
+
+</html>
