@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "mocha": "mocha tests/",
-    "//": "运行所有代码检查和单元测试",
-    "test": "npm-run-all --parallel lint:* mocha",
+    "test": "# 运行所有代码检查和单元测试 \n    npm-run-all --parallel lint:* mocha",
     "eslint": "eslint *.js",
     "lint:js": "eslint *.js",
     "lint:js:fix": "npm run lint:js -- --fix",
