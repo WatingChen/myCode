@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint:js & npm run lint:css & npm run lint:json & npm run lint:markdown & mocha tests/ & wait",
+    "mocha": "mocha tests/",
+    "test": "npm-run-all lint:* mocha",
     "eslint": "eslint *.js",
     "lint:js": "eslint *.js",
     "lint:css": "stylelint *.less",
@@ -15,6 +16,7 @@
   "license": "ISC",
   "devDependencies": {
     "eslint": "^7.16.0",
-    "eslint-plugin-vue": "^7.4.0"
+    "eslint-plugin-vue": "^7.4.0",
+    "npm-run-all": "^4.1.5"
   }
 }
