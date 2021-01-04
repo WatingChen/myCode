@@ -14,8 +14,10 @@
     "precover": "rm -rf coverage",
     "cover": "nyc --reporter=html npm test",
     "cover:cleanup": "rm -rf coverage && rm -rf .nyc_output",
-    "cover:archive": "mkdir -p coverage_archive/$npm_package_version && cp -r coverage/* coverage_archive/$npm_package_version",
-    "postcover": "npm run cover:archive && npm run cover:cleanup && open coverage_archive/$npm_package_version/index.html"
+    "cover:archive": "cross-var \"mkdir -p coverage_archive/$npm_package_version && cp -r coverage/* coverage_archive/$npm_package_version\"",
+    "cover:serve": "cross-var http-server coverage_archive/$npm_package_version -p $npm_package_config_port",
+    "cover:open": "cross-var opn http://localhost:$npm_package_config_port",
+    "postcover": "npm-run-all cover:archive cover:cleanup --parallel cover:serve cover:open"
   },
   "author": "WaitingChen",
   "license": "ISC",
@@ -24,6 +26,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.16.0",
     "eslint-plugin-vue": "^7.4.0",
     "http-server": "^0.12.3",
